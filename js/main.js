@@ -81,7 +81,8 @@ $(function () {
         slidesToShow: 1,
         slidesToScroll: 1,
         fade: true,
-        arrows: false
+        arrows: false,
+        
     });
     
     $('.slickPrev').on('click', function(e) {
@@ -102,10 +103,38 @@ $(function () {
         toggleMenu();
     })
  
-    
     function toggleMenu() {
         $('#jsBurger').toggleClass("is-active");
         $('#nav-menu').toggleClass("show");
+        $('body').toggleClass('no-scroll');
     }
     
+    // scroll-animate
+    $('.nav__link:not(.nav__link--btn)').on('click', function(e) {
+        e.preventDefault();
+        let contentTarget = $(this).data('scroll');
+        console.log(contentTarget);
+        let offsetTop = $(contentTarget).offset().top;
+        $('html, body').animate({scrollTop: offsetTop},700);
+    });
+
+    // fixed header
+    
+    let headerH = $('.header').innerHeight();
+    let scrollPosition = $(window).scrollTop();
+    checkScroll(headerH, scrollPosition);
+
+    $(window).on('scroll resize', function() {
+        headerH = $('.header').innerHeight();
+        scrollPosition = $(window).scrollTop();
+        checkScroll(headerH, scrollPosition);
+    });
+    function checkScroll (headerH, scrollPosition) {
+        if (scrollPosition > headerH) {
+            $('.header').addClass('fixed');
+        } else {
+            $('.header').removeClass('fixed');
+        }
+    }
+
 });
