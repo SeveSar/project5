@@ -97,16 +97,12 @@ $(function () {
     });
 
     $('#jsBurger').on('click', toggleMenu);
-        
-    $('.nav__link').on('click', function(e) {
-        e.preventDefault();
-        toggleMenu();
-    })
  
     function toggleMenu() {
         $('#jsBurger').toggleClass("is-active");
         $('#nav-menu').toggleClass("show");
         $('body').toggleClass('no-scroll');
+        
     }
     
     // scroll-animate
@@ -116,6 +112,9 @@ $(function () {
         console.log(contentTarget);
         let offsetTop = $(contentTarget).offset().top;
         $('html, body').animate({scrollTop: offsetTop},700);
+        $('#nav-menu').removeClass("show");
+        $('body').removeClass('no-scroll');
+        $('#jsBurger').removeClass("is-active");
     });
 
     // fixed header
